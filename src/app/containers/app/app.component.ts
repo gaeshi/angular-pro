@@ -1,14 +1,18 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
-
-import { Store } from '../../../store';
 import { AuthService, User } from '../../../auth/shared/services/auth/auth.service';
+import { Store } from '../../../store';
 
 @Component({
   selector: 'app-root',
   template: `
     <div>
-      Hello Angular!
+      <app-header [user]="user$ | async" (logout)="onLogout()">
+      </app-header>
+      <app-nav
+        *ngIf="(user$ | async)?.authenticated">
+      </app-nav>
       <div class="wrapper">
         <router-outlet></router-outlet>
       </div>
@@ -18,11 +22,12 @@ import { AuthService, User } from '../../../auth/shared/services/auth/auth.servi
 })
 export class AppComponent implements OnInit, OnDestroy {
 
-  user$!: Observable<User>;
-  subscription!: Subscription;
+  user$?: Observable<User>;
+  subscription?: Subscription;
 
   constructor(
     private authService: AuthService,
+    private router: Router,
     private store: Store) {
   }
 
@@ -32,7 +37,11 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.subscription?.unsubscribe();
   }
 
+  async onLogout(): Promise<void> {
+    await this.authService.logoutUser();
+    await this.router.navigate(['/auth/login']);
+  }
 }

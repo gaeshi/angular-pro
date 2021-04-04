@@ -1,10 +1,9 @@
-import { AngularFireAuthModule } from '@angular/fire/auth';
-import { AngularFireDatabaseModule } from '@angular/fire/database';
-import { AngularFireModule, FirebaseAppConfig } from '@angular/fire';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { AngularFireModule, FirebaseAppConfig } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { RouterModule, Routes } from '@angular/router';
-
 import { SharedModule } from './shared/shared.module';
 
 export const ROUTES: Routes = [
@@ -27,7 +26,6 @@ export const firebaseConfig: FirebaseAppConfig = {
   messagingSenderId: '788618193920',
   appId: '1:788618193920:web:99d1b397ce8605d3237ce5'
 };
-
 
 @NgModule({
   imports: [
