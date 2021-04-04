@@ -1,8 +1,5 @@
 {
   "extends": "tslint:recommended",
-  "paths": {
-    "store": ["src/store.ts"]
-  },
   "rulesDirectory": [
     "codelyzer"
   ],
@@ -68,6 +65,7 @@
       true,
       "as-needed"
     ],
+    "ordered-imports": true,
     "quotemark": [
       true,
       "single"
