@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "fitness-app-e8205"
+  },
+  "targets": {
+    "fitness-app-e8205": {
+      "hosting": {
+        "angular-pro": [
+          "fitness-app-e8205"
+        ]
+      }
+    }
   }
 }
