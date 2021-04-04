@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
+
+import { Store } from '../../../store';
+import { AuthService, User } from '../../../auth/shared/services/auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -12,12 +16,23 @@ import { Component, OnInit } from '@angular/core';
   `,
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
 
-  constructor() {
+  user$!: Observable<User>;
+  subscription!: Subscription;
+
+  constructor(
+    private authService: AuthService,
+    private store: Store) {
   }
 
   ngOnInit(): void {
+    this.subscription = this.authService.auth$.subscribe();
+    this.user$ = this.store.select<User>('user');
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
 }
